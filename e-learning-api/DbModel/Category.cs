@@ -14,7 +14,7 @@ namespace e_learning_api.DbModel
         [Key]
         public int CategoryId { get; set; }
 
-        [Required(ErrorMessage = "*"), MaxLength(100, ErrorMessage = "La taille requise est de 100")]
+        [Required(ErrorMessage = "*")]
         public string Label { get; set; }
 
         public ICollection<Course> Courses { get; set; }

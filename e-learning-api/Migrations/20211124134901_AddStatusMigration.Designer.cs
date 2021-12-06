@@ -10,8 +10,8 @@ using e_learning_api.DbModel;
 namespace e_learning_api.Migrations
 {
     [DbContext(typeof(ElearningDbContext))]
-    [Migration("20211122162311_AddRelationshipsMigration")]
-    partial class AddRelationshipsMigration
+    [Migration("20211124134901_AddStatusMigration")]
+    partial class AddStatusMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,7 +217,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.AudienceTargeted", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.AudienceTargeted", b =>
                 {
                     b.Property<int>("AudienceTargetedId")
                         .ValueGeneratedOnAdd()
@@ -238,7 +238,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("AudienceTargeted");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Category", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -247,15 +247,14 @@ namespace e_learning_api.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Chapter", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Chapter", b =>
                 {
                     b.Property<int>("ChapterId")
                         .ValueGeneratedOnAdd()
@@ -283,7 +282,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Chapter");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Commentary", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Commentary", b =>
                 {
                     b.Property<string>("IdUser")
                         .HasColumnType("nvarchar(450)");
@@ -307,7 +306,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Commentary");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Course", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Course", b =>
                 {
                     b.Property<int>("CourseId")
                         .ValueGeneratedOnAdd()
@@ -347,6 +346,9 @@ namespace e_learning_api.Migrations
                     b.Property<string>("SpecialisteId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("StatusCourse")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CourseId");
 
                     b.HasIndex("CategoryId");
@@ -362,7 +364,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Course");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Language", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Language", b =>
                 {
                     b.Property<int>("LanguageId")
                         .ValueGeneratedOnAdd()
@@ -371,15 +373,14 @@ namespace e_learning_api.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LanguageId");
 
                     b.ToTable("Language");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.LevelCourse", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.LevelCourse", b =>
                 {
                     b.Property<int>("LevelCourseId")
                         .ValueGeneratedOnAdd()
@@ -388,15 +389,14 @@ namespace e_learning_api.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LevelCourseId");
 
                     b.ToTable("LevelCourse");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.PartCourse", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.PartCourse", b =>
                 {
                     b.Property<int>("PartCourseId")
                         .ValueGeneratedOnAdd()
@@ -420,7 +420,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("PartCourse");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Prerequisite", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Prerequisite", b =>
                 {
                     b.Property<int>("PrerequisiteId")
                         .ValueGeneratedOnAdd()
@@ -441,7 +441,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Prerequisite");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Purpose", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Purpose", b =>
                 {
                     b.Property<int>("PurposeId")
                         .ValueGeneratedOnAdd()
@@ -462,7 +462,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Purpose");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Registration", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Registration", b =>
                 {
                     b.Property<string>("IdUser")
                         .HasColumnType("nvarchar(450)");
@@ -480,7 +480,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Registration");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Resources", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Resources", b =>
                 {
                     b.Property<int>("ResourcesId")
                         .ValueGeneratedOnAdd()
@@ -501,7 +501,7 @@ namespace e_learning_api.Migrations
                     b.ToTable("Resources");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.User", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.User", b =>
                 {
                     b.Property<string>("IdUser")
                         .HasColumnType("nvarchar(450)");
@@ -511,31 +511,30 @@ namespace e_learning_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Biography")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("EmailContact")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("IdRole")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -547,9 +546,10 @@ namespace e_learning_api.Migrations
                         .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("Speciality")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StatusUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdUser");
 
@@ -607,9 +607,9 @@ namespace e_learning_api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.AudienceTargeted", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.AudienceTargeted", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Course", "Course")
+                    b.HasOne("e_learning_api.DbModel.Course", "Course")
                         .WithMany("AudiencesTargeted")
                         .HasForeignKey("CourseId")
                         .HasConstraintName("FK_AudienceTargeted_Course");
@@ -617,9 +617,9 @@ namespace e_learning_api.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Chapter", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Chapter", b =>
                 {
-                    b.HasOne("e_learning_api.Model.PartCourse", "PartCourse")
+                    b.HasOne("e_learning_api.DbModel.PartCourse", "PartCourse")
                         .WithMany("Chapters")
                         .HasForeignKey("PartCourseId")
                         .HasConstraintName("FK_Chapter_PartCourse");
@@ -627,16 +627,16 @@ namespace e_learning_api.Migrations
                     b.Navigation("PartCourse");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Commentary", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Commentary", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Course", "Course")
+                    b.HasOne("e_learning_api.DbModel.Course", "Course")
                         .WithMany("Commentaries")
                         .HasForeignKey("CourseId")
                         .HasConstraintName("FK_Commentary_Course")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e_learning_api.Model.User", "User")
+                    b.HasOne("e_learning_api.DbModel.User", "User")
                         .WithMany("Commentaries")
                         .HasForeignKey("IdUser")
                         .HasConstraintName("FK_Commentary_User")
@@ -648,29 +648,29 @@ namespace e_learning_api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Course", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Course", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Category", "Category")
+                    b.HasOne("e_learning_api.DbModel.Category", "Category")
                         .WithMany("Courses")
                         .HasForeignKey("CategoryId")
                         .HasConstraintName("FK_Course_Category");
 
-                    b.HasOne("e_learning_api.Model.Language", "Language")
+                    b.HasOne("e_learning_api.DbModel.Language", "Language")
                         .WithMany("Courses")
                         .HasForeignKey("LanguageId")
                         .HasConstraintName("FK_Course_Language");
 
-                    b.HasOne("e_learning_api.Model.LevelCourse", "LevelCourse")
+                    b.HasOne("e_learning_api.DbModel.LevelCourse", "LevelCourse")
                         .WithMany("Courses")
                         .HasForeignKey("LevelCourseId")
                         .HasConstraintName("FK_Course_LevelCourse");
 
-                    b.HasOne("e_learning_api.Model.User", "OwnerOfCourse")
+                    b.HasOne("e_learning_api.DbModel.User", "OwnerOfCourse")
                         .WithMany("CoursesOfOwner")
                         .HasForeignKey("OwnerOfCourseId")
                         .HasConstraintName("FK_Course_OwnerOfCourse");
 
-                    b.HasOne("e_learning_api.Model.User", "Specialiste")
+                    b.HasOne("e_learning_api.DbModel.User", "Specialiste")
                         .WithMany("CoursesOfSpecialist")
                         .HasForeignKey("SpecialisteId")
                         .HasConstraintName("FK_Course_SpecialistUser");
@@ -686,9 +686,9 @@ namespace e_learning_api.Migrations
                     b.Navigation("Specialiste");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.PartCourse", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.PartCourse", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Course", "Course")
+                    b.HasOne("e_learning_api.DbModel.Course", "Course")
                         .WithMany("PartCourses")
                         .HasForeignKey("CourseId")
                         .HasConstraintName("FK_PartCourse_Course");
@@ -696,9 +696,9 @@ namespace e_learning_api.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Prerequisite", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Prerequisite", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Course", "Course")
+                    b.HasOne("e_learning_api.DbModel.Course", "Course")
                         .WithMany("Prerequisites")
                         .HasForeignKey("CourseId")
                         .HasConstraintName("FK_Prerequisite_Course");
@@ -706,9 +706,9 @@ namespace e_learning_api.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Purpose", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Purpose", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Course", "Course")
+                    b.HasOne("e_learning_api.DbModel.Course", "Course")
                         .WithMany("Purposes")
                         .HasForeignKey("CourseId")
                         .HasConstraintName("FK_Purpose_Course");
@@ -716,16 +716,16 @@ namespace e_learning_api.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Registration", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Registration", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Course", "Course")
+                    b.HasOne("e_learning_api.DbModel.Course", "Course")
                         .WithMany("Registrations")
                         .HasForeignKey("CourseId")
                         .HasConstraintName("FK_Registration_Course")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e_learning_api.Model.User", "User")
+                    b.HasOne("e_learning_api.DbModel.User", "User")
                         .WithMany("Registrations")
                         .HasForeignKey("IdUser")
                         .HasConstraintName("FK_Registration_User")
@@ -737,9 +737,9 @@ namespace e_learning_api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Resources", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Resources", b =>
                 {
-                    b.HasOne("e_learning_api.Model.Chapter", "Chapter")
+                    b.HasOne("e_learning_api.DbModel.Chapter", "Chapter")
                         .WithMany("Resources")
                         .HasForeignKey("ChapterId")
                         .HasConstraintName("FK_Resources_Chapter");
@@ -747,17 +747,17 @@ namespace e_learning_api.Migrations
                     b.Navigation("Chapter");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Category", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Category", b =>
                 {
                     b.Navigation("Courses");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Chapter", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Chapter", b =>
                 {
                     b.Navigation("Resources");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Course", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Course", b =>
                 {
                     b.Navigation("AudiencesTargeted");
 
@@ -772,22 +772,22 @@ namespace e_learning_api.Migrations
                     b.Navigation("Registrations");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.Language", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.Language", b =>
                 {
                     b.Navigation("Courses");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.LevelCourse", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.LevelCourse", b =>
                 {
                     b.Navigation("Courses");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.PartCourse", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.PartCourse", b =>
                 {
                     b.Navigation("Chapters");
                 });
 
-            modelBuilder.Entity("e_learning_api.Model.User", b =>
+            modelBuilder.Entity("e_learning_api.DbModel.User", b =>
                 {
                     b.Navigation("Commentaries");
 

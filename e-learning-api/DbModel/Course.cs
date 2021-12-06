@@ -35,6 +35,8 @@ namespace e_learning_api.DbModel
         [DataType(DataType.DateTime)]
         public DateTime DateAdded { get; set; }
 
+        public string StatusCourse { get; set; }
+
         public int? NumberOfViews { get; set; }
 
         public string? OwnerOfCourseId { get; set; }

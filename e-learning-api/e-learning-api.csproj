@@ -15,6 +15,8 @@
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Context\" />
     <None Remove="DataModel\" />
+    <None Remove="Helpers\" />
+    <None Remove="Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
@@ -28,8 +30,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Authentication\" />
-    <Folder Include="Model\" />
+    <Folder Include="DbModel\" />
     <Folder Include="Context\" />
     <Folder Include="DataModel\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Configuration\" />
   </ItemGroup>
 </Project>
